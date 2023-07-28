@@ -1,47 +1,37 @@
 #include "sort.h"
-
 /**
- * swap_ints - swaps 2 integers in an array
- * @a: The first integer to swap
- * @b: The second integer to swap
- */
-void swap_ints(int *a, int *b)
-{
-	int tmp;
-
-	tmp = *a;
-	*a = *b;
-	*b = tmp;
-}
-
-/**
- * bubble_sort - sorts an array of ints in asscending order
- * @array: Array of integers to sort
- * @size: size of the array
- *
- * Return: void
+ * bubble_sort - Sorts an array of integers in ascending order
+ * @array: Pointer to the array to be sorted
+ * @size: Size of the array
  */
 void bubble_sort(int *array, size_t size)
 {
-	size_t i, len = size;
-	bool bubbly = false;
+	int swapped;/*indicates if any elements were swapped*/
+	size_t i;/*Traverses the array, outer loop*/
+	size_t j;/*iterates the inner loop compares elements*/
+	int temp;/*to store copy of one element*/
 
 	if (array == NULL || size < 2)
 	{
 		return;
 	}
-	while (bubbly == false)
+
+	for (i = 0; i < size; i++)
 	{
-		bubbly = true;
-		for (i = 0; i < len; i++)
+		swapped = 0;/*no elements were swapped at the start*/
+		for (j = 0; j < (size - 1); j++)
 		{
-			if (array[i] > array[i + 1])
+			if (array[j] > array[j + 1])/*< for descending order*/
 			{
-				swap_ints(array + i, array + i + 1);
+				/* Swap the elements */
+				temp = array[j];
+				array[j] = array[j + 1];
+				array[j + 1] = temp;
+				swapped = 1;/*elements were swapped*/
 				print_array(array, size);
-				bubbly = false;
 			}
 		}
-		len--;
+		if (!swapped)/*means it was already sorted*/
+			break;
 	}
 }
